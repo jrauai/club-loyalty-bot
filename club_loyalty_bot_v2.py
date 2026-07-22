@@ -176,13 +176,22 @@ async def check(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def add_spend(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Add customer spending"""
-    if len(context.args) < 2:
-        await update.message.reply_text("❌ Usage: /add_spend <name> <amount>\nExample: /add_spend abd 550")
+    if len(context.args) < 1:
+        await update.message.reply_text("❌ Usage: /add_spend <name>, <amount>\nExample: /add_spend Hamza Shakil, 2000")
         return
     
-    name = context.args[0]
+    text = " ".join(context.args)
+    
+    if ',' not in text:
+        await update.message.reply_text("❌ Usage: /add_spend <name>, <amount>\nExample: /add_spend Hamza Shakil, 2000")
+        return
+    
+    name, amount_str = text.split(',', 1)
+    name = name.strip()
+    amount_str = amount_str.strip()
+    
     try:
-        amount = float(context.args[1])
+        amount = float(amount_str)
         points_earned = amount / 2
         
         client = get_sheets_client()

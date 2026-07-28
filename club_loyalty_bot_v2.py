@@ -48,6 +48,7 @@ TOKEN = os.getenv("TOKEN")
 SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
 
 ADMIN_IDS = [
+    8981104725
     # Add Telegram user IDs here
     # Example:
     # 123456789

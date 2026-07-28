@@ -734,20 +734,20 @@ async def check(
 
 
 
-        points = safe_float(
-    customer.get(
-        "Points Balance",
-        0
-    )
-)
+        points = float(
+            customer.get(
+                "Points Balance",
+                0
+            )
+        )
 
 
-        spent = safe_float(
-    customer.get(
-        "Points Balance",
-        0
-    )
-)
+        spent = float(
+            customer.get(
+                "Total Spent",
+                0
+            )
+        )
 
 
         guestlist = customer.get(
@@ -972,12 +972,12 @@ async def redeem(
 
 
 
-        current_points = safe_float(
-    customer.get(
-        "Points Balance",
-        0
-    )
-)
+        current_points = float(
+            customer.get(
+                "Points Balance",
+                0
+            )
+        )
 
 
 
@@ -1074,25 +1074,18 @@ async def top(
         records = sheet.get_all_records()
 
 
-def safe_float(value):
-    try:
-        if value == "" or value is None:
-            return 0
-        return float(value)
-    except:
-        return 0
 
-
-ranking = sorted(
-    records,
-    key=lambda x: safe_float(
-        x.get(
-            "Points Balance",
-            0
+        ranking = sorted(
+            records,
+            key=lambda x:
+                float(
+                    x.get(
+                        "Points Balance",
+                        0
+                    )
+                ),
+            reverse=True
         )
-    ),
-    reverse=True
-)
 
 
         message = "🏆 LFIS TOP MEMBERS\n\n"
